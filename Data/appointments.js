@@ -1,3 +1,3 @@
-let appointments = []
+let appointments = [];
 
 export {appointments}

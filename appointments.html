@@ -11,15 +11,43 @@
 		<main>
 			<section id='options'>
 				<h1 id = 'optH'>Options</h1>
-				<a href='#'>Create an appointment</a>
+				<a href='#' id='appoC'>Create an appointment</a>
 				<a href='index.html'>Back to main menu</a>
 			</section>
 			<section>
 				<h1>Appointments</h1>
 				<div id='appoShow'></div>
 			</section>
+			<dialog id='appoForm'>
+				<form id='appoPat'>
+					<label for='pat'>Patient</label>
+					<select name='pat' id='pat' required>
+						<option selected disabled>-- Choose a patient --</option>
+					</select>
+				</form>
+				<form id='appoDoc'>
+					<label for='doc'>Doctor</label>
+					<select name='doc' id='doc' required>
+						<option selected disabled>-- Choose a doctor --</option>
+					</select>
+				</form>
+				<form id='appoDate'>
+					<label for='dat'>Date</label>
+					<input type='date' name='dat' id='dat' required>
+				</form>
+				<form id='appoTime'>
+					<label for='tim'>Time</label>
+					<input type='time' name='tim' id='tim' required>
+				</form>
+				<form id='appoReason'>
+					<label for='rea'>Reason</label>
+					<textarea name='rea' id='rea' placeholder='Write the reason for the appointment' required></textarea>
+				</form>
+				<button type='submit' id='btnSubmit'>Create</button>
+			</dialog>
 		</main>
 		<footer>Hospital []&copy; — All rights reserved.</footer>
 	</body>
+	<script type='text/javascript' src='./Data/appos.json'></script>
 	<script type='module' src='script.js'></script>
 </html>

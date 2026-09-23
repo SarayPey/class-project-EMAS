@@ -1,0 +1,11 @@
+[{"patient": 0,
+	"doctor": 0,
+	"date": "28-09-2026",
+	"time": "15:00",
+	"reason": "Patient Maya Huges asked for an appointment with Psychologist Zara Jones because she suspects having depression."},
+{	"patient": 0,
+	"doctor": 1,
+	"date": "30-09-2026",
+	"time": "13:20",
+	"reason": "She came for a pending surgery for a tumor on her left ear."}
+]

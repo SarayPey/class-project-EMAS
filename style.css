@@ -34,10 +34,10 @@ header {
 
 #options {
   background-color: var(--c2);
-  border: 0.188rem solid var(--c1);
+  border: .188rem solid var(--c1);
   border-radius: 1rem;
   padding: 1.25rem 4.375rem 3.125rem;
-  gap: 0.625rem;
+  gap: .625rem;
   margin: 1.25rem auto;
   width: max-content;
   display: flex;
@@ -47,15 +47,15 @@ header {
 
 section h1 {
   color: var(--c1);
-  margin-bottom: 0.938rem;
+  margin-bottom: .9375rem;
 }
 
 #options a {
   background: var(--c4);
   color: var(--c1);
-  padding: 0.469rem;
+  padding: .5rem;
   border-radius: 1rem;
-  border: 0.188rem solid;
+  border: .1875rem solid;
   text-align: center;
   width: max-content;
   text-decoration: none;
@@ -67,24 +67,53 @@ section h1 {
   color: var(--c6);
 }
 
+dialog {
+  margin: auto;
+  padding: 2rem;
+  background: var(--c4);
+  border: 0.2rem solid var(--c1);
+  border-radius: 1rem;
+}
+
+form {
+  display: grid;
+  grid-column: 1;
+}
+
+label {
+  color: var(--c1);
+}
+
+form select:invalid, select:valid, input::placeholder, input, textarea::placeholder, textarea {
+  color: var(--c1);
+  border-radius: 1rem;
+  padding: 0.25rem;
+  width: 10rem;
+}
+
+textarea {
+  height: 5rem;
+}
+
 @media (max-width: 425px) {
   header {
     font-size: 250%;
   }
+  
   #options {
-    padding: 0.625rem 2.5rem 1.875rem;
-    gap: 0.625rem;
+    padding: .625rem 2.5rem 1.875rem;
+    gap: .625rem;
     margin: 1.25rem auto;
   }
 
   #options h1 {
-    margin-bottom: 0.313rem;
+    margin-bottom: .3rem;
     font-size: 2rem;
   }
 
   #options a {
-    padding: 0.469rem;
-    border-radius: 0.938rem;
+    padding: .5rem;
+    border-radius: 1rem;
+    font-size: 1rem;
   }
-
 }

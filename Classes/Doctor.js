@@ -9,8 +9,15 @@ class Doctor {
 		this.#specialtyDoc = specialties[specialtyDoc];
 		this.#phoneNumberDoc = phoneNumberDoc;
 	};
+	showDocName() {
+		return this.#nameDoc;
+	};
+	showDocSpecialty() {
+		return this.#specialtyDoc.name;
+	};
 	showDoctorInfo(){
 		return `Name: ${this.#nameDoc}<br>Specialty: ${this.#specialtyDoc.name}<br>Phone number: ${this.#phoneNumberDoc}`;
-	}
-}
+	};
+};
+
 export {Doctor};
