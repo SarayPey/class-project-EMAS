@@ -18,7 +18,12 @@ let docShow   = document.querySelector('#docShow');
 let patShow   = document.querySelector('#patShow');
 let appoShow  = document.querySelector('#appoShow');
 let btnSubmit = document.querySelector('#btnSubmit');
+let btnClose  = document.querySelector('#btnClose');
 let btnAppo   = document.querySelector('#appoC');
+let btnDoc    = document.querySelector('#docC');
+let btnPat    = document.querySelector('#patC');
+let modalDoc  = document.querySelector('#docForm');
+let modalPat  = document.querySelector('#patForm');
 let modalAppo = document.querySelector('#appoForm');
 let selPat    = document.querySelector('#pat');
 let selDoc    = document.querySelector('#doc');
@@ -46,7 +51,7 @@ function pat(){
 		patData.innerHTML = element.showPatientInfo();
 		if(!element){
 			patData.innerHTML = 'There are no registerd patients, make one and try again!';
-		}
+		};
 		patShow.appendChild(patData);
 	};
 };
@@ -65,7 +70,7 @@ function doc(){
 		docData.innerHTML = element.showDoctorInfo();
 		if(!element){
 			docData.innerHTML = 'There are no registered doctors, make one and try again!';
-		}
+		};
 		docShow.appendChild(docData);
 	};
 };
@@ -84,7 +89,7 @@ function appo(){
 		appoData.innerHTML = element.showAppointment();
 		if(!element){
 			appoData.innerHTML = 'There are no registered appoinments, make one and try again!';
-		}
+		};
 		appoShow.appendChild(appoData);
 	};
 };
@@ -101,9 +106,47 @@ if(appoShow){
 	appo();
 };
 
+if(btnDoc){
+	btnClose = document.querySelector('#btnClose');
+	btnSubmit = document.querySelector('#btnSubmit');
+	btnDoc.addEventListener('click', () => {
+		modalDoc.showModal();
+		// for (let patient in patients) {
+		// 	optPat = document.createElement('option');
+		// 	optPat.value = patient;
+		// 	optPat.innerHTML = patients[patient].showPatName();
+		// 	selPat.appendChild(optPat);
+		// };
+		btnClose.addEventListener('click', () => {
+			modalDoc.close();
+		});
+		btnSubmit.addEventListener('click', (ev) => {
+			ev.preventDefault();
+			modalDoc.close();
+		});
+	});
+};
+
+if(btnPat){
+	btnClose = document.querySelector('#btnClose');
+	btnSubmit = document.querySelector('#btnSubmit');
+	btnPat.addEventListener('click', () => {
+		modalPat.showModal();
+		btnClose.addEventListener('click', () => {
+			modalPat.close();
+		});
+		btnSubmit.addEventListener('click', (ev) => {
+			ev.preventDefault();
+			modalPat.close();
+		});
+	});
+};
+
 if(btnAppo){
+	btnClose = document.querySelector('#btnClose');
+	btnSubmit = document.querySelector('#btnSubmit');
 	btnAppo.addEventListener('click', () => {
-		modalAppo.showModal()
+		modalAppo.showModal();
 		let valPat = '';
 		let optPat = undefined;
 		let optDoc = undefined;
@@ -128,7 +171,11 @@ if(btnAppo){
 			valDoc = selDoc.value;
 			console.log(valDoc);
 		});
-		btnSubmit.addEventListener('click', ()=> {
+		btnClose.addEventListener('click', () => {
+			modalAppo.close();
+		});
+		btnSubmit.addEventListener('click', (ev)=> {
+			ev.preventDefault();
 			let dateAppo = inpDate.value;
 			let timeAppo = inpTime.value;
 			let valAppo = new Appointment(valPat, valDoc, dateAppo, timeAppo, inpReason.value);
@@ -147,10 +194,10 @@ if(btnAppo){
 				appoData.innerHTML = element.showAppointment();
 				if (!element) {
 					appoData.innerHTML = 'There are no registered appoinments, make one and try again!';
-				}
+				};
 				appoShow.appendChild(appoData);
 			};
-			modalAppo.close()
+			modalAppo.close();
 		});
 	});
 };

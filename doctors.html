@@ -11,7 +11,7 @@
 		<main>
 			<section id='options'>
 				<h1 id = 'optH'>Options</h1>
-				<a href='#'>Create a doctor</a>
+				<a href='#' id='docC'>Create a doctor</a>
 				<a href='index.html'>Back to main menu</a>
 			</section>
 			<section>
@@ -19,29 +19,19 @@
 				<div id='docShow'></div>
 			</section>
 			<dialog id='docForm'>
-				<form id='docPat'>
-					<label for='pat'>Patient</label>
-					<select name='pat' id='pat' required>
-						<option selected disabled>-- Choose a patient --</option>
+				<form id='docName'>
+					<label for='namD'>Doctor name</label>
+					<input type="text" name='namD' id='namD'>
+				</form>
+				<form id='docSpec'>
+					<label for='spe'>Specialty</label>
+					<select name='spe id='spe' required>
+						<option selected disabled>-- Choose a specialty --</option>
 					</select>
 				</form>
-				<form id='docDoc'>
-					<label for='doc'>Doctor</label>
-					<select name='doc' id='doc' required>
-						<option selected disabled>-- Choose a doctor --</option>
-					</select>
-				</form>
-				<form id='docDate'>
-					<label for='dat'>Date</label>
-					<input type='date' name='dat' id='dat' required>
-				</form>
-				<form id='docTime'>
-					<label for='tim'>Time</label>
-					<input type='time' name='tim' id='tim' required>
-				</form>
-				<form id='docReason'>
-					<label for='rea'>Reason</label>
-					<textarea name='rea' id='rea' placeholder='Write the reason for the docintment' required></textarea>
+				<form id='docNum'>
+					<label for='nuD'>Phone number</label>
+					<input type='text' name='nuD' id='nuD' required>
 				</form>
 				<button id='btnClose'>Close</button>
 				<button type='submit' id='btnSubmit'>Create</button>
@@ -49,5 +39,5 @@
 		</main>
 		<footer>Hospital []&copy; — All rights reserved.</footer>
 	</body>
-	<script type='module' src='script.js'></script>
+	<script type='module' src='./script.js'></script>
 </html>
