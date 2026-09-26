@@ -2,6 +2,7 @@ import {Appointment} from './Classes/Appointment.js';
 import {doctors} from './Data/doctors.js';
 import {patients} from './Data/patients.js';
 import {appointments} from './Data/appointments.js';
+import {specialties} from './Classes/Specialty.js';
 
 async function appoLoad() {
 	var response = await fetch('./Data/appos.json');
@@ -14,28 +15,38 @@ async function appoLoad() {
 	};
 };
 
+console.log(doctors);
+console.log(patients);
+console.log(appointments);
+
 let docShow   = document.querySelector('#docShow');
 let patShow   = document.querySelector('#patShow');
 let appoShow  = document.querySelector('#appoShow');
 let btnSubmit = document.querySelector('#btnSubmit');
 let btnClose  = document.querySelector('#btnClose');
+
 let btnAppo   = document.querySelector('#appoC');
 let btnDoc    = document.querySelector('#docC');
 let btnPat    = document.querySelector('#patC');
+
 let modalDoc  = document.querySelector('#docForm');
 let modalPat  = document.querySelector('#patForm');
 let modalAppo = document.querySelector('#appoForm');
+
 let selPat    = document.querySelector('#pat');
 let selDoc    = document.querySelector('#doc');
 let inpDate   = document.querySelector('#dat');
 let inpTime   = document.querySelector('#tim');
 let inpReason = document.querySelector('#rea');
 
-appoLoad();
+let inpNamD   = document.querySelector('#namD');
+let selSpe    = document.querySelector('#spe');
+let inpNumD   = document.querySelector('#numD');
 
-console.log(doctors);
-console.log(patients);
-console.log(appointments);
+let inpNamP   = document.querySelector('#namP');
+let inpAge    = document.querySelector('#age');
+let inpNumP   = document.querySelector('#numD');
+let inpAdd    = document.querySelector('#add');
 
 function pat(){
 	for (let patient in patients) {
@@ -47,7 +58,6 @@ function pat(){
 		patData.style.padding = '1rem';
 		patData.style.border = '0.188rem solid';
 		patData.style.borderRadius = '1rem';
-		patData.style.color = 'var(--c1)';
 		patData.innerHTML = element.showPatientInfo();
 		if(!element){
 			patData.innerHTML = 'There are no registerd patients, make one and try again!';
@@ -66,7 +76,6 @@ function doc(){
 		docData.style.padding = '1rem';
 		docData.style.border = '0.188rem solid';
 		docData.style.borderRadius = '1rem';
-		docData.style.color = 'var(--c1)';
 		docData.innerHTML = element.showDoctorInfo();
 		if(!element){
 			docData.innerHTML = 'There are no registered doctors, make one and try again!';
@@ -85,7 +94,6 @@ function appo(){
 		appoData.style.padding = '1rem';
 		appoData.style.border = '0.188rem solid';
 		appoData.style.borderRadius = '1rem';
-		appoData.style.color = 'var(--c1)';
 		appoData.innerHTML = element.showAppointment();
 		if(!element){
 			appoData.innerHTML = 'There are no registered appoinments, make one and try again!';
@@ -111,12 +119,15 @@ if(btnDoc){
 	btnSubmit = document.querySelector('#btnSubmit');
 	btnDoc.addEventListener('click', () => {
 		modalDoc.showModal();
-		// for (let patient in patients) {
-		// 	optPat = document.createElement('option');
-		// 	optPat.value = patient;
-		// 	optPat.innerHTML = patients[patient].showPatName();
-		// 	selPat.appendChild(optPat);
-		// };
+		for (let specialty in specialties) {
+			let optSpe = document.createElement('option');
+			optSpe.value = specialty;
+			optSpe.innerHTML = specialties[specialty].getSpec();
+			selSpe.appendChild(optSpe);
+			btnClose.addEventListener('click', () => {
+				optSpe.remove();
+			});
+		};
 		btnClose.addEventListener('click', () => {
 			modalDoc.close();
 		});
@@ -143,25 +154,30 @@ if(btnPat){
 };
 
 if(btnAppo){
+	appoLoad();
 	btnClose = document.querySelector('#btnClose');
 	btnSubmit = document.querySelector('#btnSubmit');
 	btnAppo.addEventListener('click', () => {
 		modalAppo.showModal();
 		let valPat = '';
-		let optPat = undefined;
-		let optDoc = undefined;
 		let valDoc = '';
 		for (let patient in patients) {
-			optPat = document.createElement('option');
+			let optPat = document.createElement('option');
 			optPat.value = patient;
 			optPat.innerHTML = patients[patient].showPatName();
 			selPat.appendChild(optPat);
+			btnClose.addEventListener('click', () => {
+				optPat.remove();
+			});
 		};
 		for (let doctor in doctors) {
-			optDoc = document.createElement('option');
+			let optDoc = document.createElement('option');
 			optDoc.value = doctor;
 			optDoc.innerHTML = `${doctors[doctor].showDocName()} — ${doctors[doctor].showDocSpecialty()}`;
 			selDoc.appendChild(optDoc);
+			btnClose.addEventListener('click', () => {
+				optDoc.remove();
+			});
 		};
 		selPat.addEventListener('change', () => {
 			valPat = selPat.value;
@@ -190,7 +206,6 @@ if(btnAppo){
 				appoData.style.padding = '1rem';
 				appoData.style.border = '0.188rem solid';
 				appoData.style.borderRadius = '1rem';
-				appoData.style.color = 'var(--c1)';
 				appoData.innerHTML = element.showAppointment();
 				if (!element) {
 					appoData.innerHTML = 'There are no registered appoinments, make one and try again!';

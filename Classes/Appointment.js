@@ -16,7 +16,7 @@ class Appointment {
 		this.#reason = reason;
 	};
 	showAppointment(){
-		return `Patient: ${this.#patient.showPatName()}<br>Doctor: ${this.#doctor.showDocName()}<br>Date: ${this.#date}<br>Time: ${this.#time}<br>${this.#reason}`;
+		return `<b>Patient:</b> ${this.#patient.showPatName()}<br><b>Doctor:</b> ${this.#doctor.showDocName()}<br><b>Date:</b> ${this.#date}<br><b>Time:</b> ${this.#time}<br><b>Reason:</b> ${this.#reason}`;
 	};
 };
 

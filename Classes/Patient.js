@@ -13,7 +13,7 @@ class Patient {
 		return this.#namePat;
 	};
 	showPatientInfo(){
-		return `Name: ${this.#namePat}<br>Age: ${this.#agePat}<br>Phone number: ${this.#phoneNumberPat}<br>Addess: ${this.#addressPat}`;
+		return `<b>Name:</b> ${this.#namePat}<br><b>Age:</b> ${this.#agePat}<br><b>Phone number:</b> ${this.#phoneNumberPat}<br><b>Addess:</b> ${this.#addressPat}`;
 	};
 };
 

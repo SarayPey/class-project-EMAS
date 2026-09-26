@@ -16,7 +16,7 @@ class Doctor {
 		return this.#specialtyDoc.name;
 	};
 	showDoctorInfo(){
-		return `Name: ${this.#nameDoc}<br>Specialty: ${this.#specialtyDoc.name}<br>Phone number: ${this.#phoneNumberDoc}`;
+		return `<b>Name:</b> ${this.#nameDoc}<br><b>Specialty:</b> ${this.#specialtyDoc.name}<br><b>Phone number:</b> ${this.#phoneNumberDoc}`;
 	};
 };
 
