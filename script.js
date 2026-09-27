@@ -3,10 +3,34 @@ import {doctors} from './Data/doctors.js';
 import {patients} from './Data/patients.js';
 import {appointments} from './Data/appointments.js';
 import {specialties} from './Classes/Specialty.js';
+import { Doctor } from './Classes/Doctor.js';
+import { Patient } from './Classes/Patient.js';
+
+async function patLoad() {
+	var responseP = await fetch('./Data/pats.json');
+	var patJSON = await responseP.json();
+
+	var patList = patJSON.map(pa => new Patient(pa.namePat, pa.agePat, pa.phoneNumberPat, pa.addressPat));
+	for (let paJSON = 0; paJSON < patList.length; paJSON++) {
+		let objectPat = patList[paJSON];
+		patients.push(objectPat);
+	};
+};
+
+async function docLoad() {
+	var responseD = await fetch('./Data/docs.json');
+	var docJSON = await responseD.json();
+
+	var docList = docJSON.map(dr => new Doctor(dr.nameDoc, dr.specialtyDoc, dr.phoneNumberDoc));
+	for (let doJSON = 0; doJSON < docList.length; doJSON++) {
+		let objectDoc = docList[doJSON];
+		doctors.push(objectDoc);
+	};
+};
 
 async function appoLoad() {
-	var response = await fetch('./Data/appos.json');
-	var appoJSON = await response.json();
+	var responseA = await fetch('./Data/appos.json');
+	var appoJSON = await responseA.json();
 
 	var appoList = appoJSON.map(ap => new Appointment(ap.patient, ap.doctor, ap.date, ap.time, ap.reason));
 	for (let apJSON = 0; apJSON < appoList.length; apJSON++) {
@@ -14,6 +38,10 @@ async function appoLoad() {
 		appointments.push(objectAppo);
 	};
 };
+
+await docLoad();
+await patLoad();
+await appoLoad();
 
 console.log(doctors);
 console.log(patients);
@@ -45,7 +73,7 @@ let inpNumD   = document.querySelector('#numD');
 
 let inpNamP   = document.querySelector('#namP');
 let inpAge    = document.querySelector('#age');
-let inpNumP   = document.querySelector('#numD');
+let inpNumP   = document.querySelector('#numP');
 let inpAdd    = document.querySelector('#add');
 
 function pat(){
@@ -59,9 +87,6 @@ function pat(){
 		patData.style.border = '0.188rem solid';
 		patData.style.borderRadius = '1rem';
 		patData.innerHTML = element.showPatientInfo();
-		if(!element){
-			patData.innerHTML = 'There are no registerd patients, make one and try again!';
-		};
 		patShow.appendChild(patData);
 	};
 };
@@ -77,9 +102,6 @@ function doc(){
 		docData.style.border = '0.188rem solid';
 		docData.style.borderRadius = '1rem';
 		docData.innerHTML = element.showDoctorInfo();
-		if(!element){
-			docData.innerHTML = 'There are no registered doctors, make one and try again!';
-		};
 		docShow.appendChild(docData);
 	};
 };
@@ -95,9 +117,6 @@ function appo(){
 		appoData.style.border = '0.188rem solid';
 		appoData.style.borderRadius = '1rem';
 		appoData.innerHTML = element.showAppointment();
-		if(!element){
-			appoData.innerHTML = 'There are no registered appoinments, make one and try again!';
-		};
 		appoShow.appendChild(appoData);
 	};
 };
@@ -119,6 +138,7 @@ if(btnDoc){
 	btnSubmit = document.querySelector('#btnSubmit');
 	btnDoc.addEventListener('click', () => {
 		modalDoc.showModal();
+		let valSpe = '';
 		for (let specialty in specialties) {
 			let optSpe = document.createElement('option');
 			optSpe.value = specialty;
@@ -128,11 +148,30 @@ if(btnDoc){
 				optSpe.remove();
 			});
 		};
+		selSpe.addEventListener('change', () => {
+			valSpe = selSpe.value;
+			console.log(valSpe);
+		});
 		btnClose.addEventListener('click', () => {
 			modalDoc.close();
 		});
 		btnSubmit.addEventListener('click', (ev) => {
 			ev.preventDefault();
+			let valDoc = new Doctor(inpNamD.value, valSpe, inpNumD.value);
+			console.log(valDoc);
+			doctors.push(valDoc);
+			for (let doctor in doctors) {
+				let element = doctors[doctor];
+				console.log(element);
+				let docData = document.createElement('p');
+				docData.style.margin = '1rem';
+				docData.style.backgroundColor = 'var(--c3)';
+				docData.style.padding = '1rem';
+				docData.style.border = '0.188rem solid';
+				docData.style.borderRadius = '1rem';
+				docData.innerHTML = element.showDoctorInfo();
+				docShow.appendChild(docData);
+			};
 			modalDoc.close();
 		});
 	});
@@ -148,13 +187,27 @@ if(btnPat){
 		});
 		btnSubmit.addEventListener('click', (ev) => {
 			ev.preventDefault();
+			let valPat = new Patient(inpNamP.value, inpAge.value, inpNumP.value, inpAdd.value);
+			console.log(valPat);
+			patients.push(valPat);
+			for (let patient in patients) {
+				let element = patients[patient];
+				console.log(element);
+				let patData = document.createElement('p');
+				patData.style.margin = '1rem';
+				patData.style.backgroundColor = 'var(--c3)';
+				patData.style.padding = '1rem';
+				patData.style.border = '0.188rem solid';
+				patData.style.borderRadius = '1rem';
+				patData.innerHTML = element.showPatientInfo();
+				patShow.appendChild(patData);
+			};
 			modalPat.close();
 		});
 	});
 };
 
 if(btnAppo){
-	appoLoad();
 	btnClose = document.querySelector('#btnClose');
 	btnSubmit = document.querySelector('#btnSubmit');
 	btnAppo.addEventListener('click', () => {
@@ -207,13 +260,9 @@ if(btnAppo){
 				appoData.style.border = '0.188rem solid';
 				appoData.style.borderRadius = '1rem';
 				appoData.innerHTML = element.showAppointment();
-				if (!element) {
-					appoData.innerHTML = 'There are no registered appoinments, make one and try again!';
-				};
 				appoShow.appendChild(appoData);
 			};
 			modalAppo.close();
 		});
 	});
 };
-
