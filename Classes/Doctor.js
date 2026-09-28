@@ -1,13 +1,20 @@
-import { specialties } from './Specialty.js';
+import {specialties} from './Specialty.js';
 
 class Doctor {
 	#nameDoc;
 	#specialtyDoc;
 	#phoneNumberDoc;
 	constructor(nameDoc, specialtyDoc, phoneNumberDoc) {
-		this.#nameDoc = nameDoc;
-		this.#specialtyDoc = specialties[specialtyDoc];
+		this.#nameDoc        = nameDoc;
+		this.#specialtyDoc   = specialties[specialtyDoc];
 		this.#phoneNumberDoc = phoneNumberDoc;
+	};
+	getDoctorData() {
+		return {
+			nameDoc            : this.#nameDoc,
+			specialtyDoc       : specialties.indexOf(this.#specialtyDoc),
+			phoneNumberDoc     : this.#phoneNumberDoc
+		};
 	};
 	showDocName() {
 		return this.#nameDoc;

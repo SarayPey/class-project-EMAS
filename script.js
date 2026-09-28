@@ -3,40 +3,88 @@ import {doctors} from './Data/doctors.js';
 import {patients} from './Data/patients.js';
 import {appointments} from './Data/appointments.js';
 import {specialties} from './Classes/Specialty.js';
-import { Doctor } from './Classes/Doctor.js';
-import { Patient } from './Classes/Patient.js';
+import {Doctor} from './Classes/Doctor.js';
+import {Patient} from './Classes/Patient.js';
+
+function savePatients(){
+	let patientData = patients.map(patient => patient.getPatientData());
+	localStorage.setItem('patients', JSON.stringify(patientData));
+};
+
+function saveDoctors() {
+	let doctorData = doctors.map(doctor => doctor.getDoctorData());
+	localStorage.setItem('doctors', JSON.stringify(doctorData));
+};
+
+function saveAppointments() {
+	let appointmentData = appointments.map(appointment => appointment.getAppointmentData());
+	localStorage.setItem('appointments', JSON.stringify(appointmentData));
+};
 
 async function patLoad() {
-	var responseP = await fetch('./Data/pats.json');
-	var patJSON = await responseP.json();
+	let savedPatients = localStorage.getItem('patients');
+	if (savedPatients) {
+		let localPatient = JSON.parse(savedPatients);
 
-	var patList = patJSON.map(pa => new Patient(pa.namePat, pa.agePat, pa.phoneNumberPat, pa.addressPat));
-	for (let paJSON = 0; paJSON < patList.length; paJSON++) {
-		let objectPat = patList[paJSON];
-		patients.push(objectPat);
+		for (let newPat of localPatient) {
+			let patLocal = new Patient(newPat.namePat, newPat.agePat, newPat.phoneNumberPat, newPat.addressPat);
+			patients.push(patLocal);
+		}
+	} else {
+		const responseP = await fetch('./Data/pats.json');
+		let patJSON = await responseP.json();
+
+		let patList = patJSON.map(pa => new Patient(pa.namePat, pa.agePat, pa.phoneNumberPat, pa.addressPat));
+		for (let paJSON = 0; paJSON < patList.length; paJSON++) {
+			let objectPat = patList[paJSON];
+			patients.push(objectPat);
+		};
+		savePatients();
 	};
 };
 
 async function docLoad() {
-	var responseD = await fetch('./Data/docs.json');
-	var docJSON = await responseD.json();
+	let savedDoctors = localStorage.getItem('doctors');
+	if (savedDoctors) {
+		let localDoctor = JSON.parse(savedDoctors);
 
-	var docList = docJSON.map(dr => new Doctor(dr.nameDoc, dr.specialtyDoc, dr.phoneNumberDoc));
-	for (let doJSON = 0; doJSON < docList.length; doJSON++) {
-		let objectDoc = docList[doJSON];
-		doctors.push(objectDoc);
-	};
+		for (let newDoc of localDoctor) {
+			let docLocal = new Doctor(newDoc.nameDoc, newDoc.specialtyDoc, newDoc.phoneNumberDoc);
+			doctors.push(docLocal);
+		};
+	} else {
+		const responseD = await fetch('./Data/docs.json');
+		let docJSON = await responseD.json();
+
+		let docList = docJSON.map(dr => new Doctor(dr.nameDoc, dr.specialtyDoc, dr.phoneNumberDoc));
+		for (let doJSON = 0; doJSON < docList.length; doJSON++) {
+			let objectDoc = docList[doJSON];
+			doctors.push(objectDoc);
+		};
+		saveDoctors();
+	}
 };
 
 async function appoLoad() {
-	var responseA = await fetch('./Data/appos.json');
-	var appoJSON = await responseA.json();
+	let savedAppointments = localStorage.getItem('appointments');
+	if (savedAppointments) {
+		let localAppointment = JSON.parse(savedAppointments)
 
-	var appoList = appoJSON.map(ap => new Appointment(ap.patient, ap.doctor, ap.date, ap.time, ap.reason));
-	for (let apJSON = 0; apJSON < appoList.length; apJSON++) {
-		let objectAppo = appoList[apJSON];
-		appointments.push(objectAppo);
-	};
+		for (let newAppo of localAppointment) {
+			let appoLocal = new Appointment(newAppo.patient, newAppo.doctor, newAppo.date, newAppo.time, newAppo.reason);
+			appointments.push(appoLocal);
+		}
+	} else {
+		const responseA = await fetch('./Data/appos.json');
+		let appoJSON = await responseA.json();
+
+		let appoList = appoJSON.map(ap => new Appointment(ap.patient, ap.doctor, ap.date, ap.time, ap.reason));
+		for (let apJSON = 0; apJSON < appoList.length; apJSON++) {
+			let objectAppo = appoList[apJSON];
+			appointments.push(objectAppo);
+		};
+		saveAppointments();
+	}
 };
 
 await docLoad();
@@ -77,6 +125,7 @@ let inpNumP   = document.querySelector('#numP');
 let inpAdd    = document.querySelector('#add');
 
 function pat(){
+	patShow.innerHTML = '';
 	for (let patient in patients) {
 		let element = patients[patient];
 		console.log(element);
@@ -92,6 +141,7 @@ function pat(){
 };
 
 function doc(){
+	docShow.innerHTML = '';
 	for (let doctor in doctors) {
 		let element = doctors[doctor];
 		console.log(element);
@@ -107,6 +157,7 @@ function doc(){
 };
 
 function appo(){
+	appoShow.innerHTML = '';
 	for (let appointment in appointments) {
 		let element = appointments[appointment];
 		console.log(element);
@@ -160,18 +211,8 @@ if(btnDoc){
 			let valDoc = new Doctor(inpNamD.value, valSpe, inpNumD.value);
 			console.log(valDoc);
 			doctors.push(valDoc);
-			for (let doctor in doctors) {
-				let element = doctors[doctor];
-				console.log(element);
-				let docData = document.createElement('p');
-				docData.style.margin = '1rem';
-				docData.style.backgroundColor = 'var(--c3)';
-				docData.style.padding = '1rem';
-				docData.style.border = '0.188rem solid';
-				docData.style.borderRadius = '1rem';
-				docData.innerHTML = element.showDoctorInfo();
-				docShow.appendChild(docData);
-			};
+			saveDoctors();
+			doc();
 			modalDoc.close();
 		});
 	});
@@ -190,18 +231,8 @@ if(btnPat){
 			let valPat = new Patient(inpNamP.value, inpAge.value, inpNumP.value, inpAdd.value);
 			console.log(valPat);
 			patients.push(valPat);
-			for (let patient in patients) {
-				let element = patients[patient];
-				console.log(element);
-				let patData = document.createElement('p');
-				patData.style.margin = '1rem';
-				patData.style.backgroundColor = 'var(--c3)';
-				patData.style.padding = '1rem';
-				patData.style.border = '0.188rem solid';
-				patData.style.borderRadius = '1rem';
-				patData.innerHTML = element.showPatientInfo();
-				patShow.appendChild(patData);
-			};
+			savePatients();
+			pat();
 			modalPat.close();
 		});
 	});
@@ -250,18 +281,8 @@ if(btnAppo){
 			let valAppo = new Appointment(valPat, valDoc, dateAppo, timeAppo, inpReason.value);
 			console.log(valAppo);
 			appointments.push(valAppo);
-			for (let appointment in appointments) {
-				let element = appointments[appointment];
-				console.log(element);
-				let appoData = document.createElement('p');
-				appoData.style.margin = '1rem';
-				appoData.style.backgroundColor = 'var(--c3)';
-				appoData.style.padding = '1rem';
-				appoData.style.border = '0.188rem solid';
-				appoData.style.borderRadius = '1rem';
-				appoData.innerHTML = element.showAppointment();
-				appoShow.appendChild(appoData);
-			};
+			saveAppointments();
+			appo();
 			modalAppo.close();
 		});
 	});

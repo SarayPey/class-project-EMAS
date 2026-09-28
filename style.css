@@ -89,11 +89,13 @@ form select:invalid, select:valid, input::placeholder, input, textarea::placehol
   color: var(--c1);
   border-radius: 1rem;
   padding: 0.25rem;
-  width: 10rem;
+  width: 12rem;
 }
 
 textarea {
   height: 5rem;
+  overflow-x: hidden;
+  align-content: baseline;
 }
 
 @media (max-width: 425px) {

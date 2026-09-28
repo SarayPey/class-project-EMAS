@@ -9,6 +9,14 @@ class Patient {
 		this.#phoneNumberPat = phoneNumberPat;
 		this.#addressPat     = addressPat;
 	};
+	getPatientData() {
+		return {
+			namePat            : this.#namePat,
+			agePat             : this.#agePat,
+			phoneNumberPat     : this.#phoneNumberPat,
+			addressPat         : this.#addressPat
+		};
+	};
 	showPatName() {
 		return this.#namePat;
 	};
