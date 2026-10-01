@@ -15,6 +15,7 @@
   color: var(--c1);
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: 'Roboto Condensed', sans-serif;
   transition: all .1s;
 }
@@ -32,7 +33,7 @@ header {
   padding: 5%;
 }
 
-#options {
+section {
   background-color: var(--c2);
   border: .2rem solid var(--c1);
   border-radius: 1rem;
@@ -89,13 +90,76 @@ form select:invalid, select:valid, input::placeholder, input, textarea::placehol
   color: var(--c1);
   border-radius: 1rem;
   padding: 0.25rem;
+}
+
+input, select, select option, textarea {
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: .15rem solid;
+  border-radius: 1rem;
   width: 12rem;
+  field-sizing: content;
+}
+
+button {
+  margin: .5rem 0rem;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: .15rem solid;
+  border-radius: 1rem;
 }
 
 textarea {
   height: 5rem;
+  padding: .6rem;
   overflow-x: hidden;
   align-content: baseline;
+  min-height: 1rem;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+footer {
+  background-color: var(--c6);
+  color: var(--c3);
+  padding: 2rem 1rem;
+}
+
+#pantalla-carga {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--c1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#pantalla-carga h1 {
+  color: var(--c3);
+}
+
+.spinner {
+  width: 12.25%;
+  height: 9.85%;
+  border: .4rem solid var(--c3);
+  border-top: .4rem solid var(--c6);
+  filter: drop-shadow(0rem 0rem .4rem var(--c5));
+  border-radius: 100%;
+  animation: girar 1.5s linear infinite;
+}
+
+@keyframes girar {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 425px) {
@@ -103,13 +167,13 @@ textarea {
     font-size: 250%;
   }
   
-  #options {
+  section {
     padding: .625rem 2.5rem 1.875rem;
     gap: .625rem;
     margin: 1.25rem auto;
   }
 
-  #options h1 {
+  section h1 {
     margin-bottom: .3rem;
     font-size: 2rem;
   }
