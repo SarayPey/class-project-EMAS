@@ -207,13 +207,18 @@ if(btnDoc){
 			modalDoc.close();
 		});
 		btnSubmit.addEventListener('click', (ev) => {
-			ev.preventDefault();
-			let valDoc = new Doctor(inpNamD.value, valSpe, inpNumD.value);
-			console.log(valDoc);
-			doctors.push(valDoc);
-			saveDoctors();
-			doc();
-			modalDoc.close();
+			if(inpNamD == '' || valSpe == '' || inpNumD == ''){
+				ev.preventDefault();
+				alert('ALERT: There is one or more empty elements.');
+			} else {
+				ev.preventDefault();
+				let valDoc = new Doctor(inpNamD.value, valSpe, inpNumD.value);
+				console.log(valDoc);
+				doctors.push(valDoc);
+				saveDoctors();
+				doc();
+				modalDoc.close();
+			};
 		});
 	});
 };
@@ -227,13 +232,18 @@ if(btnPat){
 			modalPat.close();
 		});
 		btnSubmit.addEventListener('click', (ev) => {
-			ev.preventDefault();
-			let valPat = new Patient(inpNamP.value, inpAge.value, inpNumP.value, inpAdd.value);
-			console.log(valPat);
-			patients.push(valPat);
-			savePatients();
-			pat();
-			modalPat.close();
+			if (inpNamP == '' || inpAge == '' || inpNumP == '' || inpAdd == ''){
+				alert('ALERT: There is one or more empty elements.');
+				ev.preventDefault();
+			} else {
+				ev.preventDefault();
+				let valPat = new Patient(inpNamP.value, inpAge.value, inpNumP.value, inpAdd.value);
+				console.log(valPat);
+				patients.push(valPat);
+				savePatients();
+				pat();
+				modalPat.close();
+			};
 		});
 	});
 };
@@ -275,15 +285,20 @@ if(btnAppo){
 			modalAppo.close();
 		});
 		btnSubmit.addEventListener('click', (ev)=> {
-			ev.preventDefault();
-			let dateAppo = inpDate.value;
-			let timeAppo = inpTime.value;
-			let valAppo = new Appointment(valPat, valDoc, dateAppo, timeAppo, inpReason.value);
-			console.log(valAppo);
-			appointments.push(valAppo);
-			saveAppointments();
-			appo();
-			modalAppo.close();
+			if (valPat == '' || valDoc == '' || dateAppo == '' || timeAppo == '' || inpReason == '') {
+				alert('ALERT: There is one or more empty elements.');
+				ev.preventDefault();
+			} else {
+				ev.preventDefault();
+				let dateAppo = inpDate.value;
+				let timeAppo = inpTime.value;
+				let valAppo = new Appointment(valPat, valDoc, dateAppo, timeAppo, inpReason.value);
+				console.log(valAppo);
+				appointments.push(valAppo);
+				saveAppointments();
+				appo();
+				modalAppo.close();
+			};
 		});
 	});
 };
