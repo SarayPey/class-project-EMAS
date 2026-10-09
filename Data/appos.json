@@ -1,17 +1,23 @@
-[{"patient": 1,
-	"doctor": 1,
-	"date": "01-10-2026",
-	"time": "15:30",
-	"reason": "Eye surgery"
-},
-{"patient": 0,
-	"doctor": 0,
-	"date": "28-09-2026",
-	"time": "15:00",
-	"reason": "Patient Maya Huges asked for an appointment with Psychologist Zara Jones because she suspects having depression."},
-{	"patient": 0,
-	"doctor": 1,
-	"date": "30-09-2026",
-	"time": "13:20",
-	"reason": "She came for a pending surgery for a tumor on her left ear."}
+[
+	{
+		"patient": 1,
+		"doctor": 1,
+		"date": "01-10-2026",
+		"time": "15:30",
+		"reason": "Eye surgery"
+	},
+	{
+		"patient": 0,
+		"doctor": 0,
+		"date": "28-09-2026",
+		"time": "15:00",
+		"reason": "Patient Maya Duke asked for an appointment with Psychologist Zara Jones because she suspects having depression."
+	},
+	{
+		"patient": 0,
+		"doctor": 1,
+		"date": "30-09-2026",
+		"time": "13:20",
+		"reason": "She came for a pending surgery for a tumor on her left ear."
+	}
 ]

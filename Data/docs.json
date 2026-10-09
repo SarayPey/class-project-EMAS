@@ -1,7 +1,7 @@
 [{
 	"nameDoc": "Zara Jones",
 	"specialtyDoc": 0,
-	"phoneNumberDoc": 223852002
+	"phoneNumberDoc": 123852002
 },
 {
 	"nameDoc": "Jane Doe",
@@ -11,5 +11,11 @@
 {
 	"nameDoc": "Cassia Lane",
 	"specialtyDoc": 3,
-	"phoneNumberDoc": 19812293
+	"phoneNumberDoc": 198122930
+},
+{
+	"nameDoc": "Lisa Araneda",
+	"specialtyDoc": 2,
+	"phoneNumberDoc": 923410443
+
 }]
