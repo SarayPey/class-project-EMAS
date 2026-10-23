@@ -285,13 +285,13 @@ if(btnAppo){
 			modalAppo.close();
 		});
 		btnSubmit.addEventListener('click', (ev)=> {
+			let dateAppo = inpDate.value;
+			let timeAppo = inpTime.value;
 			if (valPat == '' || valDoc == '' || dateAppo == '' || timeAppo == '' || inpReason == '') {
 				alert('ALERT: There is one or more empty elements.');
 				ev.preventDefault();
 			} else {
 				ev.preventDefault();
-				let dateAppo = inpDate.value;
-				let timeAppo = inpTime.value;
 				let valAppo = new Appointment(valPat, valDoc, dateAppo, timeAppo, inpReason.value);
 				console.log(valAppo);
 				appointments.push(valAppo);
